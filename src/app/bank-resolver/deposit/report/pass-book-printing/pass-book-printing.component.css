@@ -1,0 +1,8 @@
+.suggestions{
+  position: absolute;
+  background-color: white;
+  z-index: 99;
+}
+.text-danger {
+  font-size: larger!important;
+}

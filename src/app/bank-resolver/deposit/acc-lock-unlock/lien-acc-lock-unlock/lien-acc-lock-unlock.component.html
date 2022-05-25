@@ -1,0 +1,81 @@
+<loading *ngIf="isLoading"></loading>
+<div class="row d-flex justify-content-center align-items-center">
+  <div
+    class="col-xs-12 col-sm-12 col-md-11 col-lg-11 shadow mb-2 bg-white p-3 d-flex justify-content-center align-items-center">
+    <button type="button" class="btn btn-primary btn-sm ml-1 mr-1" (click)="retrieveData()">Retrieve</button>
+    <button type="button" class="btn btn-primary btn-sm ml-1 mr-1" (click)="modifyData()">Modify</button>
+    <button type="button" class="btn btn-primary btn-sm ml-1 mr-1" (click)="clearData()">Clear</button>
+    <button type="button" class="btn btn-primary btn-sm ml-1 mr-1" (click)="saveData()">Save</button>
+    <button type="button" class="btn btn-primary btn-sm ml-1 mr-1" (click)="backScreen()">Back</button>
+  </div>
+
+
+  <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11 shadow mb-2 bg-white p-3">
+
+    <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>{{alertMsgType}}: </strong>
+      {{alertMsg}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeAlertMsg()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <h1></h1>
+    <h6 style="background-color:lightskyblue">Lien Account Lock/Unlock</h6>
+
+    <div class="form-row">
+
+      <div class="form-group col-4">
+        <small for="trans_type">Account Type</small> <br>
+        <select
+          style="height:25px; font-size: small; align-content:center; padding-top: 0px; background-color: whitesmoke;"
+          [disabled]="operationType != 'R' || disabledAll" [(ngModel)]="tm_depositall.acc_type_cd" (change)="setAccountType($event.target.value)"
+          id="account_type" class="form-control form-control-sm">
+          <option [value]="tm_depositall.acc_type_cd" selected>
+            {{tm_depositall.acc_type_cd}}-{{tm_depositall.acc_type_desc}}
+          </option>
+          <option *ngFor="let l of accountTypeList" [value]="l.acc_type_cd">{{l.acc_type_cd}}-{{l.acc_type_desc}}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group col-2">
+        <small for="acc_no">Account Number</small>
+        <input style="height:25px"
+          [disabled]="tm_depositall.acc_type_cd == undefined || tm_depositall.acc_type_cd == null || operationType != 'R' || disabledAll" type="text"
+          [(ngModel)]="tm_depositall.acc_num" (change)="getAccountStatus()"
+          class="form-control form-control-sm text-capitalize" id="acc_no" placeholder="Account Number">
+      </div>
+
+      <div class="form-group col-4">
+        <small for="cust_name">Customer Name</small>
+        <input style="height:25px" [disabled]="true" [(ngModel)]="tm_depositall.cust_name" type="text"
+          class="form-control form-control-sm text-capitalize" id="cust_name" placeholder="Customer Name">
+      </div>
+
+      <div class="form-group col-2">
+        <small for="trans_type">Lock Mode</small> <br>
+        <select
+          style="height:25px; font-size: small; align-content:center; padding-top: 0px; background-color: whitesmoke;"
+          [disabled]="operationType != 'U'" [(ngModel)]="tm_depositall.lock_mode" (change)="setLockUnlockMode($event.target.value)"
+          id="account_type" class="form-control form-control-sm">
+          <option [value]="tm_depositall.lock_mode" selected>{{tm_depositall.lock_mode}}-{{tm_depositall.lock_mode_desc}}</option>
+          <option *ngFor="let l of LockUnlockList" [value]="l.lockMode">{{l.lockMode}}-{{l.lockModeDesc}}
+          </option>
+        </select>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div
+    class="col-xs-12 col-sm-12 col-md-11 col-lg-11 shadow mb-2 bg-white p-3 d-flex justify-content-center align-items-center">
+    <button type="button" class="btn btn-primary btn-sm ml-1 mr-1" (click)="retrieveData()">Retrieve</button>
+    <button type="button" class="btn btn-primary btn-sm ml-1 mr-1" (click)="modifyData()">Modify</button>
+    <button type="button" class="btn btn-primary btn-sm ml-1 mr-1" (click)="clearData()">Clear</button>
+    <button type="button" class="btn btn-primary btn-sm ml-1 mr-1" (click)="saveData()">Save</button>
+    <button type="button" class="btn btn-primary btn-sm ml-1 mr-1" (click)="backScreen()">Back</button>
+  </div>
+
+

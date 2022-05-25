@@ -1,0 +1,108 @@
+<loading *ngIf="isLoading"></loading>
+<div>
+  <div class="wrapper">
+    <div class="wrapperWhite">
+
+      <div class="col-sm-3 float-left">
+        <div class="boxData">
+          <h2>Todays Opening </h2>
+          <div class="bottomSec">
+            <div class="imgSec"><img src="../../../assets/images/icon_a.png" alt="" /></div>
+            <div class="amount">{{dashboardItem.todaysOpening | INRCurrency}}</div>
+          </div>
+          <br clear="all">
+
+        </div>
+      </div>
+
+      <div class="col-sm-3 float-left">
+        <div class="boxData bgColor2">
+          <h2>Cash Received</h2>
+          <div class="bottomSec">
+            <div class="imgSec"><img src="../../../assets/images/icon_b.png" alt="" /></div>
+            <div class="amount">{{dashboardItem.cashReceived | INRCurrency}}</div>
+          </div>
+          <br clear="all">
+
+        </div>
+      </div>
+
+      <div class="col-sm-3 float-left">
+        <div class="boxData bgColor3">
+          <h2>Cash Paid</h2>
+          <div class="bottomSec">
+            <div class="imgSec"><img src="../../../assets/images/icon_c.png" alt="" /></div>
+            <div class="amount">{{dashboardItem.cashPaid | INRCurrency}}</div>
+          </div>
+          <br clear="all">
+
+        </div>
+      </div>
+
+      <div class="col-sm-3 float-left">
+        <div class="boxData bgColor4">
+          <h2>Today’s Closing</h2>
+          <div class="bottomSec">
+            <div class="imgSec"><img src="../../../assets/images/icon_d.png" alt="" /></div>
+            <div class="amount">{{dashboardItem.todayClosing | INRCurrency}}</div>
+          </div>
+          <br clear="all">
+
+        </div>
+      </div>
+
+
+
+      <div class="col-sm-3 float-left">
+        <div class="boxData bgColor5">
+          <h2>Account opened <span>[No: {{dashboardItem.accountopened}}]</span></h2>
+          <div class="bottomSec">
+            <div class="imgSec"><img src="../../../assets/images/icon_e.png" alt="" /></div>
+            <div class="amount">{{dashboardItem.accountopenedAmount | INRCurrency}}</div>
+          </div>
+          <br clear="all">
+
+        </div>
+      </div>
+
+      <div class="col-sm-3 float-left">
+        <div class="boxData bgColor6">
+          <h2>Today’s Maturity <span>[No: {{dashboardItem.todayMaturity}}]</span></h2>
+          <div class="bottomSec">
+            <div class="imgSec"><img src="../../../assets/images/icon_f.png" alt="" /></div>
+            <div class="amount">{{dashboardItem.todayMaturityAmount | INRCurrency}}</div>
+          </div>
+          <br clear="all">
+
+        </div>
+      </div>
+
+      <div class="col-sm-3 float-left">
+        <div class="boxData bgColor7">
+          <h2>Loan Disbursed <span>[No: {{dashboardItem.loanDisbursed}}]</span></h2>
+          <div class="bottomSec">
+            <div class="imgSec"><img src="../../../assets/images/icon_g.png" alt="" /></div>
+            <div class="amount">{{dashboardItem.loanDisbursedAmount | INRCurrency}}</div>
+          </div>
+          <br clear="all">
+
+        </div>
+      </div>
+
+      <div class="col-sm-3 float-left">
+        <div class="boxData bgColor8">
+          <h2>Loan Recovered <span>[No: {{dashboardItem.loanRecovered}}]</span></h2>
+          <div class="bottomSec">
+            <div class="imgSec"><img src="../../../assets/images/icon_h.png" alt="" /></div>
+            <div class="amount">{{dashboardItem.loanRecoveredAmount | INRCurrency}}</div>
+          </div>
+          <br clear="all">
+
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>

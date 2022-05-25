@@ -1,0 +1,16 @@
+.scroll-when-long{
+  max-height: 60vh;
+  overflow: auto;
+}
+/* .scroll-when-long:hover{
+  overflow: auto;
+} */
+thead tr:nth-child(1) th{
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.form-group {
+  margin-bottom: 0rem!important;
+}

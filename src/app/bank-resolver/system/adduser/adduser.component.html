@@ -1,0 +1,84 @@
+<loading *ngIf="isLoading"></loading>
+
+<div class="row d-flex justify-content-center align-items-center pt-4"
+style="background-color: #78c2ad21; min-height: 20vh;">
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 shadow-sm mb-4 bg-white p-3">
+  <div>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" [disabled]="!isRetrieve" (click)="retrieve()">Retrieve</button>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" [disabled]="!isNew" (click)="new()">New</button>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" [disabled]="!isSave" (click)="saveuser()">Save</button>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" [disabled]="!isModify" (click)="updateuser()">Modify</button>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" [disabled]="!isClear" (click)="clearuser()">Clear</button>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" [disabled]="!isDel" (click)="deleteuser()">Delete</button>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" (click)="closeScreen()" style="position: absolute;right: 10px;">Close</button>
+  </div>
+</div>
+ <div  class="col-xs-12 col-sm-12 col-md-8 col-lg-8 shadow-lg mb-4 bg-white p-3"> 
+  <div *ngIf="showMsg && showMsg.Show" class="col-xs-12 col-sm-12 col-md-11 col-lg-11 shadow mb-2 bg-white p-3">
+    <div class="alert alert-dismissible fade show" role="alert" [ngClass]="{'alert-success': showMsg.Type === 0,
+     'alert-warning':showMsg.Type === 1, 'alert-info':showMsg.Type === 2, 'alert-danger':showMsg.Type === 3 }">
+      <strong>{{showMsg.Message}}</strong>
+      <button type="button" class="close" data-dismiss="alert" (click)="showMsg = null" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <form [formGroup]="addUser" autocomplete="chrome-off" >
+    <div class="form-row">
+      <div class="form-group  col-3">
+        <small for="userid">User Id<span class="text-danger">*</span></small>
+        <input type="text" class="form-control form-control-sm text-capitalize" formControlName="userid" id="userid">
+      </div>
+      <div class="form-group col-2">
+        <small for="branch">Branch<span class="text-danger">*</span></small>
+        <select id="branch" class="form-control form-control-sm" formControlName="branch">
+        <option *ngFor="let option of brnDtls;let i = index" [value]="option.brn_cd" formControlName="branch">{{ option.brn_name }}</option>
+        </select>
+      </div>
+        <div class="form-group  col-2">
+            <small for="password">Password<span class="text-danger">*</span></small>
+            <input type="password" class="form-control form-control-sm text-capitalize" formControlName="password" id="password">
+          </div>
+         
+          <div class="form-group col-2">
+            <small for="utype">User Type<span class="text-danger">*</span></small>
+            <select name="utype"class="form-control form-control-sm" formControlName="utype">
+                    <option >   </option>
+                    <option value="S">Super User</option>
+                    <option value="G">General User</option>
+                    <option value="D">Discard User</option>
+                    <option value="A">Admin</option>
+                  </select>
+          </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-3">
+        <small for="fname">First Name<span class="text-danger">*</span></small>
+        <input type="text" class="form-control form-control-sm text-capitalize" formControlName="fname" id="fname">
+      </div>
+
+          <div class="form-group col-3">
+            <small for="mname">Middle Name</small>
+            <input type="text" class="form-control form-control-sm text-capitalize" formControlName="mname" id="mname">
+          </div>
+          <div class="form-group col-3">
+            <small for="lname">Last Name<span class="text-danger">*</span></small>
+            <input type="text" class="form-control form-control-sm text-capitalize" formControlName="lname" id="lname">
+          </div>
+         </div>
+  </form>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 shadow-sm mb-4 bg-white p-3">
+  <div>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" [disabled]="!isRetrieve" (click)="retrieve()">Retrieve</button>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" [disabled]="!isNew" (click)="new()">New</button>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" [disabled]="!isSave" (click)="saveuser()">Save</button>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" [disabled]="!isModify" (click)="updateuser()">Modify</button>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" [disabled]="!isClear" (click)="clearuser()">Clear</button>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" [disabled]="!isDel" (click)="deleteuser()">Delete</button>
+    <button type="button" class="btn btn-rounded btn-primary btn-primary-spacing btn-sm" (click)="closeScreen()" style="position: absolute;right: 10px;">Close</button>
+  </div>
+</div>
+  </div>
+  
+ 

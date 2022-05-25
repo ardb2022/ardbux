@@ -1,0 +1,117 @@
+<ng-template #content let-modal data-keyboard="false" data-backdrop="false">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Report Criteria</h4>
+    <button type="button" class="close text-danger" aria-label="Close" data-dismiss="modal" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div *ngIf="showAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Error! </strong> {{alertMsg}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeAlert()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+    <form [formGroup]="reportcriteria">
+      <div class="form-row">
+        <!-- <div class="form-group col-3">
+          <small for="acc_type_cd">Account Cd</small>
+          <select id="acc_type_cd" class="form-control form-control-sm" formControlName="acc_type_cd"
+          (change)="onAccountTypeChange()">
+            <option disabled>Choose</option>
+            <option [value]="1">1 - Saving Deposit</option>
+            <option [value]="7">7 - Share</option>
+            <option [value]="8">8 - Current</option>
+          </select>
+        </div> -->
+        <div class="col-12">
+          <small for="acct_num">Search by Loan ID / Customer Name / Phone number
+            <!-- <small style="display: inline;" class="form-text text-muted">
+              Press tab.
+            </small> -->
+          </small>
+          <!-- <input type="text"class="form-control form-control-sm "
+          formControlName="acct_num" id="acct_num" placeholder="Loan Id"
+           name="x-field-1" autocomplete="new-field-1"> -->
+           <input type="text"class="form-control form-control-sm "
+              formControlName="acct_num" id="acct_num" placeholder="Enter Loan ID / Customer Name / Phone number"
+              (input)="suggestCustomer()" name="x-field-1" autocomplete="new-field-1">
+              <div class="suggestions" *ngIf="suggestedCustomer && suggestedCustomer.length > 0">
+                <table class="table table-hover table-bordered table-sm w-auto small">
+                  <thead>
+                    <tr>
+                      <th scope="col">Acc#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Phone</th>
+                      <th scope="col">Gurdian Name</th>
+                      <th scope="col">Address</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let cust of suggestedCustomer" (click)="SelectCustomer(cust)">
+                      <td scope="row">{{cust.loan_id}}</td>
+                      <td>{{cust.cust_name}}</td>
+                      <td>{{((null === cust.phone) ? '' : cust.phone)}}</td>
+                      <td>{{cust.guardian_name}}</td>
+                      <td>{{cust.present_address}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="suggestions border p-2" style="width: 98%; font-size: small;"
+            *ngIf="suggestedCustomer && !(suggestedCustomer.length > 0)">
+            <strong class="text-danger">" {{this.reportcriteria.controls.acct_num.value}} " does not match with any customer</strong>
+            </div>
+        </div>
+        <div class="col-4">
+          <small for="fromDate" >From Date</small>
+          <div class="input-group">
+            <input type="text" placeholder="dd/mm/yyyy" class="form-control" [ngModel]="fromdate" disabled bsDatepicker
+            formControlName="fromDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass:'theme-dark-blue' }"
+            [isOpen]="isOpenFromDp">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" (click)="isOpenFromDp = !isOpenFromDp">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </button>
+          </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <small for="toDate" >To Date</small>
+          <div class="input-group">
+            <input type="text" placeholder="dd/mm/yyyy" class="form-control" [ngModel]="toDate" disabled bsDatepicker
+            formControlName="toDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass:'theme-dark-blue' }"
+            [isOpen]="isOpenToDp">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" (click)="isOpenToDp = !isOpenToDp">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </button>
+          </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+      <button class="btn btn-primary" (click)="SubmitReport()">Submit</button>
+      <button class="btn btn-light" (click)="modalRef.hide()">Close</button>
+  </div>
+</ng-template>
+
+<div class="row d-flex justify-content-center align-items-center pt-4"
+style="background-color: #78c2ad21; min-height: 20vh;">
+
+<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 shadow-lg mb-4 bg-white p-3">
+<iframe *ngIf="ReportUrl" [src]="ReportUrl" width="100%" height="700px"
+(load)="oniframeLoad()" allowfullscreen></iframe>
+</div>
+
+<div  class="col-xs-12 col-sm-12 col-md-8 col-lg-8 shadow-sm mb-4 bg-white p-3">
+<div>
+ <button type="button" class="btn btn-rounded btn-primary m-1" (click)="closeScreen()" >Close</button>
+</div>
+</div>
+</div>
+<loading *ngIf="isLoading"></loading>

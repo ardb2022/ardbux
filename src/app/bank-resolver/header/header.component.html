@@ -1,0 +1,169 @@
+<div>
+  <header class="header_class">
+    <div class="wrapper">
+      <ul class="header_top">
+        <li><strong>Bank/Society: </strong>{{bankFullName}}</li>
+        <li><strong>Branch: </strong>{{sys?.BranchName}}</li>
+        <li><strong>Financial Year: </strong>{{sys?.CurrentFinancialYr}}</li>
+        <li><strong>User: </strong>{{sys?.UserId}}</li>
+        <li class="date"><strong>Current Dt: </strong> {{sys?.CurrentDate | date:'dd-MM-yyyy'}}</li>
+      </ul>
+    </div>
+  </header>
+  <div class="row">
+    <nav class="navbar navbar-expand-lg col-md-12 col-xl-12">
+      <ul class="navbar-nav mr-auto">
+        <ng-container *ngFor="let firstLvlMenu of menuConfigs">
+          <!-- first lvl is screen -->
+          <li class="nav-item dropdown" *ngIf="firstLvlMenu.is_screen === 'Y'">
+            <a class="dropdown-item" (click)="gotoNewScreen(firstLvlMenu)">{{firstLvlMenu.menu_name}}</a>
+          </li>
+          <!-- first lvl is NOT screen -->
+          <li class="nav-item dropdown" *ngIf="firstLvlMenu.is_screen === 'N'">
+            <a class="nav-link dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"
+              (click)='over(firstLvlMenu)'> {{firstLvlMenu.menu_name}}
+            </a>
+            <!-- (mouseover)='over(firstLvlMenu)' (mouseout)='out(firstLvlMenu)' -->
+            <div  class="dropdown-menu drpdwn-prnt"
+              [ngClass]="{'show': firstLvlMenu.show}">
+              <ng-container *ngFor="let secondLvlMenu of firstLvlMenu.childMenuConfigs; index as i">
+                <!-- secnd lvl is screen -->
+                <li class="nav-item dropdown" *ngIf="secondLvlMenu.is_screen === 'Y'">
+                  <a class="dropdown-item" (click)="gotoNewScreen(secondLvlMenu)">{{secondLvlMenu.menu_name}}</a>
+                </li>
+                <!-- secnd lvl is NOT screen -->
+                <li class="nav-item dropdown" *ngIf="secondLvlMenu.is_screen === 'N'">
+                  <div *ngIf="i===0" class="dropdown-divider"></div>
+                  <a class="dropdown-item" class="nav-link dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"
+                  (click)='over(secondLvlMenu)'>
+                    {{secondLvlMenu.menu_name}}
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <!-- (mouseover)='over(secondLvlMenu)' (mouseout)='out(secondLvlMenu)' -->
+                  <div  class="dropdown-menu dropdown-menu-right"
+                  [ngClass]="{'show': secondLvlMenu.show}">
+                  <ng-container *ngFor="let thrdLvlMenu of secondLvlMenu.childMenuConfigs; index as isec">
+                     <!-- 3rd lvl is screen -->
+                    <li class="nav-item dropdown" *ngIf="thrdLvlMenu.is_screen === 'Y'">
+                      <a class="dropdown-item" (click)="gotoNewScreen(thrdLvlMenu)">{{thrdLvlMenu.menu_name}}</a>
+                    </li>
+                     <!-- 3rd lvl is NOT screen -->
+                    <li class="nav-item dropdown" *ngIf="thrdLvlMenu.is_screen === 'N'">
+                      <div  *ngIf="isec===0" class="dropdown-divider"></div>
+                      <a class="dropdown-item" (click)="over(thrdLvlMenu)">{{thrdLvlMenu.menu_name}}</a>
+                      <div class="dropdown-divider"></div>
+                      <div  class="dropdown-menu dropdown-menu-right"
+                      [ngClass]="{'show': thrdLvlMenu.show}">
+                      <ng-container *ngFor="let forthLvlMenu of thrdLvlMenu.childMenuConfigs; index as ithrd">
+                        <li class="nav-item dropdown">
+                          <div  *ngIf="ithrd===0" class="dropdown-divider"></div>
+                          <a class="dropdown-item" (click)="gotoNewScreen(forthLvlMenu)">{{forthLvlMenu.menu_name}}</a>
+                          <div class="dropdown-divider"></div>
+                        </li>
+                      </ng-container>
+                      </div>
+                    </li>
+                  </ng-container>
+                  </div>
+                </li>
+
+              </ng-container>
+            </div>
+          </li>
+        </ng-container>
+
+
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+          aria-haspopup="true" aria-expanded="false" (click)='over()'>
+            Dropdown
+          </a>
+          <div (mouseover)='over()' (mouseout)='out()' class="dropdown-menu" aria-labelledby="navbarDropdown" [ngClass]="{'show': show}">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li> -->
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item ">
+          <a class="nav-link" (click)="goToHome()"><i class="fa fa-home" aria-hidden="true"></i> </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()">Logout </a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+  <!-- <div class="row" *ngIf="showMenu">
+    <nav class="navbar navbar-expand-lg col-md-12 col-xl-12" style="background-color: #228ed3 !important;">
+      <button class="navbar-toggler" type="button" (click)="toggleCollapsed()">
+        <span class="navbar-toggler-icon" style="color: white;font-size: small;"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" *ngFor="let menu of bankConfig.menu">
+            <a class="nav-link" *ngIf="menu.activeflag === 'Y'" (click)="showChildMenuFor(menu)">{{menu.name}} </a>
+          </li>
+
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item ">
+            <a class="nav-link" (click)="goToHome()"><i class="fa fa-home" aria-hidden="true"></i> </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" (click)="logout()">Logout </a>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+  </div> -->
+  <!-- <div class="row" *ngIf="showChildMenu">
+    <nav class="navbar navbar-expand-lg col-md-12 col-xl-12">
+      <button type="button" class="btn " (click)="back('child')"><i style="color: white;font-size: small;"
+          class="fa fa-arrow-left"></i></button>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" *ngFor="let cmenu of childMenu.menu">
+          <a class="nav-link" *ngIf="cmenu.activeflag === 'Y'" (click)="showSubChildMenuFor(cmenu)">{{cmenu.name}} </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item ">
+          <a class="nav-link" (click)="goToHome()"><i class="fa fa-home" aria-hidden="true"></i> </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()">Logout </a>
+        </li>
+      </ul>
+    </nav>
+  </div> -->
+
+  <!-- <div class="row" *ngIf="showSubMenu">
+    <nav class="navbar navbar-expand-lg col-md-12 col-xl-12">
+      <button type="button" class="btn" (click)="back('sub')"><i style="color: white; font-size: small;"
+          class="fa fa-arrow-left"></i></button>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" *ngFor="let sMenu of subMenu.menu">
+          <a class="nav-link" *ngIf="sMenu.activeflag === 'Y'" (click)="gotoScreen(sMenu)">{{sMenu.screen}} </a>
+        </li>
+
+
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item ">
+          <a class="nav-link" (click)="goToHome()"><i class="fa fa-home" aria-hidden="true"></i> </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" (click)="logout()">Logout </a>
+        </li>
+      </ul>
+    </nav>
+  </div> -->
+  <div class="row justify-content-center" *ngIf="showScreenTitle">
+    <h6 class="border-dark border-top">{{selectedScreenToShow}}</h6>
+  </div>
+</div>
