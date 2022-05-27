@@ -13,6 +13,9 @@
       Invalid email or password, try again or register
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <select id="ardbbrMst" class="form-control form-control-sm" formControlName="ardbbrMst">
+        <option  *ngFor="let option of ardbBrnMst;let i = index" [value]="option.ardB_CD">{{ option.name }}</option>
+      </select>
       <div class="form-group ">
         <label for="exampleInputEmail1">User ID</label>
         <input type="text" class="form-control" id="exampleInputEmail1" formControlName="username"

@@ -8,6 +8,7 @@ import { m_branch } from '../Models/m_branch';
 import { sm_parameter } from '../Models/sm_parameter';
 import { p_gen_param } from '../Models/p_gen_param';
 import { HttpClient } from '@angular/common/http';
+import { mm_ardb } from '../Models/mm_ardb';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   isError = false;
   brnDtls: m_branch[] = [];
+  ardbBrnMst: mm_ardb[] = [];
   systemParam: sm_parameter[] = [];
   // genparam=new p_gen_param();
   isLoading = false;
@@ -28,10 +30,10 @@ export class LoginComponent implements OnInit {
   showUnlockUsr = false;
   usrToUnlock: any;
   constructor(private router: Router,
-              private formBuilder: FormBuilder,
-              private rstSvc: RestService,
-              private msg: InAppMessageService,
-              private http: HttpClient) { }
+    private formBuilder: FormBuilder,
+    private rstSvc: RestService,
+    private msg: InAppMessageService,
+    private http: HttpClient) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit {
     setTimeout(() => {
       this.isLoading = false;
       this.GetBranchMaster();
+      this.GetARDBMaster();
       const sys = new SystemValues();
       if (null !== sys.UserId && sys.UserId.length > 0) {
         const usr = new LOGIN_MASTER();
@@ -203,7 +206,18 @@ export class LoginComponent implements OnInit {
           }
         );
       },
-      err => { this.isLoading = false; console.log(err);}
+      err => { this.isLoading = false; console.log(err); }
+    );
+  }
+
+  private GetARDBMaster() {
+    this.isLoading = true;
+    this.rstSvc.addUpdDel('Mst/GetARDBMaster', null).subscribe(
+      res => {
+        console.log(res);
+        this.ardbBrnMst = res;
+       },
+      err => { this.isLoading = false; console.log(err); }
     );
   }
 }

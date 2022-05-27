@@ -69,8 +69,9 @@ export class RestService {
   }
 
   private getMasterUrl(): string {
-    const url = 'http://' + RestService.serverIp + '/MasterConfig/api/';   // PRD
+    // const url = 'http://' + RestService.serverIp + '/MasterConfig/api/';   // PRD
     // const url = 'http://' + RestService.serverIp + '/devMasterConfig/api/';  // DEV
+    const url = 'http://' + RestService.serverIp + '/ardbMasterConfig/api/';  // DEV
     // console.log(url);
     // url = 'https://localhost:5001/api/';
     return url;

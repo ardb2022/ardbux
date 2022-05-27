@@ -31,7 +31,7 @@ export class ConfigurationService {
     // let serverIp = '36.255.3.143';
     console.log('getAllConfiguration called');
     const masterApi = 'Admin/GetBankConfigDtlsNoPass';
-    const masterApiUrl = 'http://' + serverIp + '/devMasterConfig/api/'
+    const masterApiUrl = 'http://' + serverIp + '/ardbMasterConfig/api/'
       + masterApi;
     const p = new Promise<BankConfig[]>((resolve, reject) => {
 
